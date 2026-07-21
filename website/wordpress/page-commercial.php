@@ -1,3 +1,16 @@
+<?php
+/**
+ * Template Name: Commercial Homepage
+ *
+ * Standalone full-width commercial homepage for Maximum Wash.
+ * Assets are served from /wp-content/uploads/maximumwash-commercial/assets/
+ * (upload the "assets" folder there via Media/FTP — see README-WORDPRESS.md).
+ *
+ * This template intentionally does NOT call get_header()/get_footer() so the
+ * page keeps its own design regardless of the active theme. Paste your
+ * analytics tag in the marked ANALYTICS block below.
+ */
+?>
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
@@ -10,10 +23,10 @@
   <meta property="og:title" content="Commercial Building Washing &amp; Exterior Cleaning | Maximum Wash">
   <meta property="og:description" content="Exterior building washing, window cleaning, gutter and roof maintenance for commercial properties and multi-site organisations throughout New Zealand.">
   <meta property="og:url" content="https://maximumwash.co.nz/">
-  <link rel="preload" href="assets/fonts/BarlowCondensed-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/Barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/fonts.css">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="preload" href="/wp-content/uploads/maximumwash-commercial/assets/fonts/BarlowCondensed-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/wp-content/uploads/maximumwash-commercial/assets/fonts/Barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/wp-content/uploads/maximumwash-commercial/assets/css/fonts.css">
+  <link rel="stylesheet" href="/wp-content/uploads/maximumwash-commercial/assets/css/main.css">
   <!-- ANALYTICS: paste your Google Analytics / Tag Manager snippet below this line
        (copy it from any page of the existing WordPress site — view source, look for gtag.js or GTM) -->
   <!-- END ANALYTICS -->
@@ -77,7 +90,7 @@
     <!-- ======================= 1. Hero ======================= -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-media" aria-hidden="true">
-        <img src="assets/img/hero-multi-storey-building-wash.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+        <img src="/wp-content/uploads/maximumwash-commercial/assets/img/hero-multi-storey-building-wash.jpg" alt="" width="1920" height="1080" fetchpriority="high">
       </div>
       <div class="container">
         <div class="hero-inner">
@@ -125,8 +138,8 @@
           </ul>
         </div>
         <div class="capability-media">
-          <img src="assets/img/capability-ewp-facade-clean.jpg" alt="Maximum Wash technician washing a commercial facade from an elevated work platform" width="900" height="1100" loading="lazy">
-          <img src="assets/img/capability-team-working-at-heights.jpg" alt="Maximum Wash technicians in harnesses cleaning skylight glazing on a commercial roof" width="900" height="700" loading="lazy">
+          <img src="/wp-content/uploads/maximumwash-commercial/assets/img/capability-ewp-facade-clean.jpg" alt="Maximum Wash technician washing a commercial facade from an elevated work platform" width="900" height="1100" loading="lazy">
+          <img src="/wp-content/uploads/maximumwash-commercial/assets/img/capability-team-working-at-heights.jpg" alt="Maximum Wash technicians in harnesses cleaning skylight glazing on a commercial roof" width="900" height="700" loading="lazy">
         </div>
       </div>
     </section>
@@ -144,49 +157,49 @@
         <div class="card-grid card-grid--4">
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-commercial-property.jpg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-commercial-property.jpg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Commercial Property<span>Offices &amp; managed buildings</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-retirement-village.svg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-retirement-village.svg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Retirement Villages<span>Resident-aware programmes</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-body-corporate.svg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-body-corporate.svg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Body Corporates &amp; Apartments<span>Multi-storey specialists</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-retail-centre.jpg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-retail-centre.jpg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Retail &amp; Shopping Centres<span>Trading-hours friendly</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-warehouse-industrial.jpg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-warehouse-industrial.jpg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Warehouses &amp; Industrial Sites<span>Large-format exteriors</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-school-education.svg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-school-education.svg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Schools &amp; Education<span>Term-break scheduling</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-hotel-hospitality.jpg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-hotel-hospitality.jpg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Hospitality &amp; Leisure<span>Guest-first presentation</span></figcaption>
             </figure>
           </a>
           <a class="industry-card" href="https://maximumwash.co.nz/commercial-parent/">
             <figure>
-              <img src="assets/img/industry-multi-site.jpg" alt="" width="800" height="560" loading="lazy">
+              <img src="/wp-content/uploads/maximumwash-commercial/assets/img/industry-multi-site.jpg" alt="" width="800" height="560" loading="lazy">
               <figcaption>Multi-Site &amp; National Portfolios<span>One supplier, every location</span></figcaption>
             </figure>
           </a>
@@ -325,7 +338,7 @@
               <g><circle cx="153.0" cy="299.6" r="7" fill="#ffffff"/><circle cx="153.0" cy="299.6" r="5" fill="#1a5dad"/><text x="166" y="304" text-anchor="start">Christchurch</text></g>
             </g>
           </svg>
-          <img src="assets/img/nationwide-branded-fleet.jpg" alt="Maximum Wash branded truck fleet lined up at the depot" width="1200" height="700" loading="lazy" style="border-radius: var(--radius); box-shadow: var(--shadow); margin-top: 28px;">
+          <img src="/wp-content/uploads/maximumwash-commercial/assets/img/nationwide-branded-fleet.jpg" alt="Maximum Wash branded truck fleet lined up at the depot" width="1200" height="700" loading="lazy" style="border-radius: var(--radius); box-shadow: var(--shadow); margin-top: 28px;">
         </div>
       </div>
     </section>
@@ -340,7 +353,7 @@
         </div>
         <div class="card-grid card-grid--3">
           <article class="project-card">
-            <img src="assets/img/project-retirement-village.svg" alt="Placeholder image for a retirement village exterior maintenance programme" width="1000" height="700" loading="lazy">
+            <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-retirement-village.svg" alt="Placeholder image for a retirement village exterior maintenance programme" width="1000" height="700" loading="lazy">
             <div class="body">
               <span class="placeholder-flag">Case study placeholder</span>
               <p class="location">[Location]</p>
@@ -354,7 +367,7 @@
             </div>
           </article>
           <article class="project-card">
-            <img src="assets/img/project-apartment-wash.svg" alt="Placeholder image for a multi-storey apartment building wash" width="1000" height="700" loading="lazy">
+            <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-apartment-wash.svg" alt="Placeholder image for a multi-storey apartment building wash" width="1000" height="700" loading="lazy">
             <div class="body">
               <span class="placeholder-flag">Case study placeholder</span>
               <p class="location">[Location]</p>
@@ -368,7 +381,7 @@
             </div>
           </article>
           <article class="project-card">
-            <img src="assets/img/project-warehouse-facade.svg" alt="Placeholder image for a warehouse facade clean" width="1000" height="700" loading="lazy">
+            <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-warehouse-facade.svg" alt="Placeholder image for a warehouse facade clean" width="1000" height="700" loading="lazy">
             <div class="body">
               <span class="placeholder-flag">Case study placeholder</span>
               <p class="location">[Location]</p>
@@ -382,7 +395,7 @@
             </div>
           </article>
           <article class="project-card">
-            <img src="assets/img/project-national-programme.svg" alt="Placeholder image for a national multi-site programme" width="1000" height="700" loading="lazy">
+            <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-national-programme.svg" alt="Placeholder image for a national multi-site programme" width="1000" height="700" loading="lazy">
             <div class="body">
               <span class="placeholder-flag">Case study placeholder</span>
               <p class="location">Nationwide</p>
@@ -398,11 +411,11 @@
           <article class="project-card">
             <div class="ba-pair">
               <figure>
-                <img src="assets/img/project-roof-treatment-before.jpg" alt="Commercial roof covered in moss and lichen before treatment" width="600" height="700" loading="lazy"><!-- real before/after pair -->
+                <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-roof-treatment-before.jpg" alt="Commercial roof covered in moss and lichen before treatment" width="600" height="700" loading="lazy"><!-- real before/after pair -->
                 <figcaption>Before</figcaption>
               </figure>
               <figure>
-                <img src="assets/img/project-roof-treatment-after.jpg" alt="The same commercial roof after washing and treatment" width="600" height="700" loading="lazy">
+                <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-roof-treatment-after.jpg" alt="The same commercial roof after washing and treatment" width="600" height="700" loading="lazy">
                 <figcaption>After</figcaption>
               </figure>
             </div>
@@ -419,7 +432,7 @@
             </div>
           </article>
           <article class="project-card">
-            <img src="assets/img/project-rope-access.jpg" alt="Maximum Wash rope access technician abseiling down a glass office facade" width="1000" height="700" loading="lazy">
+            <img src="/wp-content/uploads/maximumwash-commercial/assets/img/project-rope-access.jpg" alt="Maximum Wash rope access technician abseiling down a glass office facade" width="1000" height="700" loading="lazy">
             <div class="body">
               <span class="placeholder-flag">Case study placeholder</span>
               <p class="location">[Location]</p>
@@ -491,7 +504,7 @@
           </ul>
         </div>
         <div>
-          <img src="assets/img/safety-working-at-heights.jpg" alt="Harnessed Maximum Wash technician washing at height from an elevated work platform" width="900" height="1100" loading="lazy">
+          <img src="/wp-content/uploads/maximumwash-commercial/assets/img/safety-working-at-heights.jpg" alt="Harnessed Maximum Wash technician washing at height from an elevated work platform" width="900" height="1100" loading="lazy">
         </div>
       </div>
     </section>
@@ -504,7 +517,7 @@
           <h2 id="credibility-heading">A supplier you can stand behind.</h2>
           <p>Figures marked <em>[confirm]</em> are placeholders — replace them with verified numbers before publishing.</p>
         </div>
-        <img src="assets/img/team-fleet-auckland.jpg" alt="The Maximum Wash team standing with their fleet and elevated work platform, Auckland city skyline behind" width="1296" height="869" loading="lazy" style="border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 48px; width: 100%;">
+        <img src="/wp-content/uploads/maximumwash-commercial/assets/img/team-fleet-auckland.jpg" alt="The Maximum Wash team standing with their fleet and elevated work platform, Auckland city skyline behind" width="1296" height="869" loading="lazy" style="border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 48px; width: 100%;">
         <div class="stats-grid">
           <div class="stat"><span class="num">8,000+</span><span class="lbl">Properties washed</span></div>
           <div class="stat"><span class="num">740+</span><span class="lbl">Jobs completed in 2024</span></div>
@@ -600,6 +613,6 @@
     <a class="btn btn--ghost" href="tel:0800125135">Call 0800 125 135</a>
   </div>
 
-  <script src="assets/js/main.js" defer></script>
+  <script src="/wp-content/uploads/maximumwash-commercial/assets/js/main.js" defer></script>
 </body>
 </html>
