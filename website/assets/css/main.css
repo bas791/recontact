@@ -5,9 +5,9 @@
 
 :root {
   /* Brand tokens — matched to Maximum Wash livery (blue/orange logo) */
-  --navy-900: #0c1622;
-  --navy-800: #12202f;
-  --navy-700: #1b2d40;
+  --navy-900: #113b70;      /* deep brand blue — dark sections, hero, footer */
+  --navy-800: #16478a;
+  --navy-700: #1a5dad;
   --navy-100: #e8eef5;
   --accent: #1a5dad;        /* brand blue (logo "MAXIMUM") — sampled from livery */
   --accent-dark: #144a8b;
@@ -93,7 +93,7 @@ p  { margin: 0 0 1em; }
   background: var(--safety);
   transform: skewX(-18deg);
 }
-.section--dark .kicker { color: #7fb8e8; }
+.section--dark .kicker, .hero .kicker { color: #b8d7f2; }
 
 .section-head { max-width: 780px; margin-bottom: 48px; }
 .section-head p { color: var(--ink-soft); font-size: 1.06rem; }
@@ -248,7 +248,7 @@ p  { margin: 0 0 1em; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(12,22,34,0.92) 25%, rgba(12,22,34,0.45) 60%, rgba(12,22,34,0.12));
+  background: linear-gradient(100deg, rgba(14,46,88,0.94) 25%, rgba(14,46,88,0.5) 60%, rgba(14,46,88,0.15));
 }
 .hero .container {
   position: relative;
@@ -372,7 +372,7 @@ p  { margin: 0 0 1em; }
   position: absolute;
   inset: auto 0 0 0;
   padding: 40px 18px 16px;
-  background: linear-gradient(transparent, rgba(12,22,34,0.9));
+  background: linear-gradient(transparent, rgba(15,44,82,0.92));
   color: #fff;
   font-weight: 700;
   font-size: 1.02rem;
@@ -401,7 +401,7 @@ p  { margin: 0 0 1em; }
   display: block;
   width: 30px;
   height: 8px;
-  background: var(--accent);
+  background: var(--safety);
   transform: skewX(-18deg);
   margin-bottom: 14px;
 }
