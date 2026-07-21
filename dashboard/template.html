@@ -1,0 +1,524 @@
+<title>Maximum Wash — Recontact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  color-scheme: light;
+  --page:#f6f8f8; --surface:#ffffff; --surface-2:#eef2f2; --line:#dde4e4;
+  --ink:#152220; --ink-2:#54615e; --ink-3:#7e8b88;
+  --accent:#0f7687; --accent-ink:#0b5966; --accent-wash:#e3f0f2;
+  --bas:#1c7c3f; --bas-wash:#e4f2e8; --herman:#a83a4b; --herman-wash:#f7e8ea;
+  --st-contacted:#2a78d6; --st-replied:#c98500; --st-quoted:#6d5bc7; --st-won:#0a8a0a; --st-lost:#7e8b88;
+  --shadow:0 1px 2px rgba(21,34,32,.06), 0 4px 16px rgba(21,34,32,.07);
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --page:#101414; --surface:#181d1d; --surface-2:#202727; --line:#2b3333;
+    --ink:#eef3f2; --ink-2:#a8b5b2; --ink-3:#7e8b88;
+    --accent:#4cb2c3; --accent-ink:#7accd9; --accent-wash:#15282c;
+    --bas:#52b374; --bas-wash:#17281d; --herman:#d97687; --herman-wash:#2d1c20;
+    --st-contacted:#5598e7; --st-replied:#eda100; --st-quoted:#9085e9; --st-won:#31b431; --st-lost:#7e8b88;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#101414; --surface:#181d1d; --surface-2:#202727; --line:#2b3333;
+  --ink:#eef3f2; --ink-2:#a8b5b2; --ink-3:#7e8b88;
+  --accent:#4cb2c3; --accent-ink:#7accd9; --accent-wash:#15282c;
+  --bas:#52b374; --bas-wash:#17281d; --herman:#d97687; --herman-wash:#2d1c20;
+  --st-contacted:#5598e7; --st-replied:#eda100; --st-quoted:#9085e9; --st-won:#31b431; --st-lost:#7e8b88;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  color-scheme: light;
+  --page:#f6f8f8; --surface:#ffffff; --surface-2:#eef2f2; --line:#dde4e4;
+  --ink:#152220; --ink-2:#54615e; --ink-3:#7e8b88;
+  --accent:#0f7687; --accent-ink:#0b5966; --accent-wash:#e3f0f2;
+  --bas:#1c7c3f; --bas-wash:#e4f2e8; --herman:#a83a4b; --herman-wash:#f7e8ea;
+  --st-contacted:#2a78d6; --st-replied:#c98500; --st-quoted:#6d5bc7; --st-won:#0a8a0a; --st-lost:#7e8b88;
+  --shadow:0 1px 2px rgba(21,34,32,.06), 0 4px 16px rgba(21,34,32,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0}
+input,select,textarea{font:inherit; color:var(--ink)}
+:is(button,input,select,textarea,a,[tabindex]):focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{transition:none!important; animation:none!important} }
+
+.app{max-width:1180px; margin:0 auto; padding:20px 20px 80px}
+
+/* header */
+header{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:18px}
+.wordmark{display:flex; align-items:baseline; gap:9px}
+.wordmark .logo{font-weight:800; font-size:19px; letter-spacing:-.02em; color:var(--accent-ink)}
+.wordmark .sub{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-3); font-weight:600}
+.spacer{flex:1}
+.whoami{display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:4px}
+.whoami span{font-size:13px; color:var(--ink-2); padding-left:8px}
+.whoami button{padding:5px 13px; border-radius:99px; font-size:13px; font-weight:600; color:var(--ink-2)}
+.whoami button.on-bas{background:var(--bas-wash); color:var(--bas)}
+.whoami button.on-herman{background:var(--herman-wash); color:var(--herman)}
+
+/* KPI tiles */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:16px}
+.kpi{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px; box-shadow:var(--shadow)}
+.kpi .lbl{font-size:11px; text-transform:uppercase; letter-spacing:.09em; font-weight:600; color:var(--ink-3)}
+.kpi .val{font-size:26px; font-weight:700; letter-spacing:-.02em; margin-top:2px}
+.kpi .hint{font-size:12px; color:var(--ink-2)}
+
+/* controls */
+.controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+.tabs{display:flex; background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:3px; gap:2px}
+.tabs button{padding:6px 12px; border-radius:6px; font-size:13px; font-weight:600; color:var(--ink-2); white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--accent-wash); color:var(--accent-ink)}
+.controls input[type="search"]{flex:1; min-width:160px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 12px}
+.controls select{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:13px}
+
+/* recency strip */
+.recency{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px 11px; margin-bottom:14px; box-shadow:var(--shadow)}
+.recency .head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:9px}
+.recency .head h2{font-size:13px; font-weight:700; margin:0}
+.recency .head .note{font-size:12px; color:var(--ink-3)}
+.buckets{display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
+.bucket{position:relative; border-radius:8px; border:1px solid var(--line); padding:8px 10px 6px; text-align:left; transition:border-color .15s}
+.bucket:hover{border-color:var(--accent)}
+.bucket[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-wash)}
+.bucket .n{font-size:19px; font-weight:700; font-variant-numeric:tabular-nums}
+.bucket .l{font-size:11px; color:var(--ink-2)}
+.bucket .bar{height:5px; border-radius:3px; background:var(--surface-2); margin-top:6px; overflow:hidden}
+.bucket .bar i{display:block; height:100%; background:var(--accent); border-radius:3px}
+
+/* table */
+.listwrap{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+.listhead{display:flex; justify-content:space-between; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line)}
+.listhead .count{font-size:13px; color:var(--ink-2)}
+.listhead .count b{color:var(--ink)}
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:760px}
+th{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3); text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); white-space:nowrap}
+th.num,td.num{text-align:right; font-variant-numeric:tabular-nums}
+td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:none}
+.cname{font-weight:600}
+.cmail{font-size:12px; color:var(--ink-3)}
+.chip{display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:99px; white-space:nowrap}
+.chip.bas{background:var(--bas-wash); color:var(--bas)}
+.chip.herman{background:var(--herman-wash); color:var(--herman)}
+.type{font-size:12px; color:var(--ink-2); white-space:nowrap}
+.mo{font-size:12px; color:var(--ink-3)}
+.mo.due{color:var(--herman); font-weight:600}
+.pill{display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; padding:2px 10px; border-radius:99px; border:1px solid var(--line); color:var(--ink-2); white-space:nowrap}
+.pill i{width:7px; height:7px; border-radius:99px; background:var(--ink-3); flex:none}
+.pill.s1{color:var(--st-contacted); border-color:color-mix(in srgb, var(--st-contacted) 40%, transparent)} .pill.s1 i{background:var(--st-contacted)}
+.pill.s2{color:var(--st-replied); border-color:color-mix(in srgb, var(--st-replied) 40%, transparent)} .pill.s2 i{background:var(--st-replied)}
+.pill.s3{color:var(--st-quoted); border-color:color-mix(in srgb, var(--st-quoted) 40%, transparent)} .pill.s3 i{background:var(--st-quoted)}
+.pill.s4{color:var(--st-won); border-color:color-mix(in srgb, var(--st-won) 40%, transparent)} .pill.s4 i{background:var(--st-won)}
+.pill.s5{color:var(--st-lost); text-decoration:line-through} .pill.s5 i{background:var(--st-lost)}
+
+/* footer bar */
+.syncbar{position:fixed; left:0; right:0; bottom:0; background:var(--surface); border-top:1px solid var(--line); padding:9px 20px; display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; font-size:13px; color:var(--ink-2)}
+.syncbar button, .syncbar label{border:1px solid var(--line); border-radius:8px; padding:5px 13px; font-size:13px; font-weight:600; color:var(--accent-ink); cursor:pointer; background:var(--surface)}
+.syncbar button:hover, .syncbar label:hover{background:var(--accent-wash)}
+
+/* drawer */
+.overlay{position:fixed; inset:0; background:rgba(10,16,15,.45); opacity:0; pointer-events:none; transition:opacity .2s; z-index:40}
+.overlay.open{opacity:1; pointer-events:auto}
+.drawer{position:fixed; top:0; right:0; bottom:0; width:min(560px,100%); background:var(--page); z-index:50; transform:translateX(102%); transition:transform .22s ease; overflow-y:auto; box-shadow:-8px 0 40px rgba(0,0,0,.18)}
+.drawer.open{transform:none}
+.drawer .inner{padding:20px}
+.dhead{display:flex; align-items:flex-start; gap:10px}
+.dhead h2{margin:0; font-size:20px; letter-spacing:-.01em}
+.dhead .close{margin-left:auto; font-size:22px; line-height:1; color:var(--ink-3); padding:4px 8px}
+.dmeta{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin-bottom:12px; box-shadow:var(--shadow)}
+.card h3{margin:0 0 9px; font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3)}
+.contact-row{display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap}
+.contact-row .v{font-weight:600; word-break:break-all}
+.mini{font-size:12px; border:1px solid var(--line); border-radius:6px; padding:2px 9px; color:var(--accent-ink); font-weight:600; background:var(--surface)}
+.mini:hover{background:var(--accent-wash)}
+.job{padding:9px 0; border-bottom:1px solid var(--line)}
+.job:last-child{border-bottom:none}
+.job .top{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap}
+.job .top .jn{font-weight:700; font-size:13px}
+.job .top .jd{font-size:12px; color:var(--ink-3)}
+.job .top .jv{margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums}
+.job .desc{font-size:13px; color:var(--ink-2); margin-top:2px}
+.job .site{font-size:12px; color:var(--ink-3)}
+.statusbtns{display:flex; gap:6px; flex-wrap:wrap}
+.statusbtns button{border:1px solid var(--line); border-radius:99px; padding:4px 12px; font-size:13px; font-weight:600; color:var(--ink-2); background:var(--surface)}
+.statusbtns button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-wash); color:var(--accent-ink)}
+.notes{width:100%; min-height:64px; border:1px solid var(--line); border-radius:8px; background:var(--surface); padding:9px 11px; margin-top:9px; resize:vertical}
+.savedby{font-size:12px; color:var(--ink-3); margin-top:5px}
+.draft label{display:block; font-size:12px; font-weight:600; color:var(--ink-2); margin:9px 0 3px}
+.draft input[type="text"], .draft textarea{width:100%; border:1px solid var(--line); border-radius:8px; background:var(--surface); padding:9px 11px}
+.draft textarea{min-height:230px; resize:vertical; line-height:1.55}
+.draft .btns{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+.btn{border-radius:8px; padding:8px 15px; font-weight:600; font-size:14px; border:1px solid var(--line); background:var(--surface); color:var(--accent-ink)}
+.btn:hover{background:var(--accent-wash)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.toast{position:fixed; bottom:64px; left:50%; transform:translateX(-50%) translateY(8px); background:var(--ink); color:var(--page); padding:8px 18px; border-radius:99px; font-size:13px; font-weight:600; opacity:0; transition:.2s; z-index:90; pointer-events:none}
+.toast.show{opacity:1; transform:translateX(-50%)}
+
+/* login gate */
+.gate{position:fixed; inset:0; background:var(--page); z-index:100; display:flex; align-items:center; justify-content:center; padding:20px}
+.gate[hidden]{display:none}
+.gate .box{max-width:430px; text-align:center}
+.gate h1{font-size:26px; letter-spacing:-.02em; margin:0 0 6px}
+.gate p{color:var(--ink-2); margin:0 0 22px}
+.gate .pick{display:flex; gap:14px; justify-content:center}
+.gate .pick button{flex:1; max-width:180px; border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:22px 10px; box-shadow:var(--shadow); transition:transform .12s}
+.gate .pick button:hover{transform:translateY(-2px)}
+.gate .pick .avatar{width:52px; height:52px; border-radius:99px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:21px; font-weight:800; color:#fff}
+.gate .pick .who{font-weight:700; font-size:16px}
+.gate .pick .desc{font-size:12px; color:var(--ink-3); margin-top:3px}
+@media (max-width:640px){
+  .buckets{grid-template-columns:repeat(5,minmax(90px,1fr)); overflow-x:auto}
+  .kpi .val{font-size:21px}
+}
+</style>
+
+<div class="gate" id="gate" hidden>
+  <div class="box">
+    <div class="wordmark" style="justify-content:center; margin-bottom:18px"><span class="logo">MAXIMUM WASH</span><span class="sub">Recontact</span></div>
+    <h1>Who's working the list?</h1>
+    <p>Pick your name — the dashboard opens on your customers and signs your email drafts. You can switch anytime up top.</p>
+    <div class="pick">
+      <button data-user="bas"><span class="avatar" style="background:var(--bas)">B</span><span class="who">Bas</span><div class="desc">Green list · 114 customers</div></button>
+      <button data-user="herman"><span class="avatar" style="background:var(--herman)">H</span><span class="who">Herman</span><div class="desc">Red + uncoloured · 348 customers</div></button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <header>
+    <div class="wordmark"><span class="logo">MAXIMUM WASH</span><span class="sub">Recontact</span></div>
+    <div class="spacer"></div>
+    <div class="whoami" id="whoami"><span>Working as</span>
+      <button data-user="bas">Bas</button>
+      <button data-user="herman">Herman</button>
+    </div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="recency">
+    <div class="head"><h2>Time since last job</h2><span class="note">click a bar to filter · customers in current view</span></div>
+    <div class="buckets" id="buckets"></div>
+  </div>
+
+  <div class="controls">
+    <div class="tabs" id="ownerTabs" role="tablist"></div>
+    <input type="search" id="q" placeholder="Search name, email, address, job…" aria-label="Search customers">
+    <select id="typeSel" aria-label="Client type">
+      <option value="">All types</option>
+      <option>Residential</option><option>Commercial</option><option>Education</option><option value="other">Other</option>
+    </select>
+    <select id="statusSel" aria-label="Outreach status">
+      <option value="">Any status</option>
+      <option value="0">Not contacted</option><option value="1">Contacted</option><option value="2">Replied</option>
+      <option value="3">Quoted</option><option value="4">Won</option><option value="5">Not interested</option>
+    </select>
+    <select id="sortSel" aria-label="Sort">
+      <option value="value">Sort: 2024 value</option>
+      <option value="oldest">Sort: longest since job</option>
+      <option value="recent">Sort: most recent job</option>
+      <option value="jobs">Sort: most jobs</option>
+      <option value="name">Sort: name A–Z</option>
+    </select>
+  </div>
+
+  <div class="listwrap">
+    <div class="listhead"><span class="count" id="countLbl"></span><span class="count" id="valueLbl"></span></div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Customer</th><th>Type</th><th>Owner</th><th class="num">Jobs</th><th class="num">2024 value</th><th>Last job</th><th>Status</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<div class="syncbar">
+  <span>Progress saves on <b>this device</b>.</span>
+  <button id="exportBtn">Export progress</button>
+  <label>Import / merge<input type="file" id="importFile" accept=".json,application/json" hidden></label>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Customer detail"><div class="inner" id="drawerInner"></div></aside>
+<div class="toast" id="toast"></div>
+
+<script id="cdata" type="application/json">/*__DATA__*/</script>
+<script>
+const DATA = JSON.parse(document.getElementById('cdata').textContent);
+const NOW = new Date();
+const $ = s => document.querySelector(s);
+const fmt$ = v => '$' + Math.round(v).toLocaleString('en-NZ');
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const STATUS=['Not contacted','Contacted','Replied','Quoted','Won','Not interested'];
+const OWNER_LABEL={bas:'Bas', herman:'Herman'};
+
+function monthsSince(iso){ if(!iso) return null; const d=new Date(iso+'T00:00:00'); return (NOW - d)/(1000*3600*24*30.44); }
+function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso+'T00:00:00'); return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+function monthYear(iso){ const d=new Date(iso+'T00:00:00'); return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+DATA.forEach(c => c.mo = monthsSince(c.lastJobDate));
+
+/* ---- progress store (per-device) ---- */
+const PKEY='mw_recontact_progress_v1';
+let progress = {};
+try{ progress = JSON.parse(localStorage.getItem(PKEY)||'{}'); }catch(e){}
+function saveProgress(){ try{ localStorage.setItem(PKEY, JSON.stringify(progress)); }catch(e){} }
+function prog(email){ return progress[email] || {s:0, n:'', by:'', at:0}; }
+function setProg(email, patch){ progress[email] = Object.assign(prog(email), patch, {by:user, at:Date.now()}); saveProgress(); }
+
+/* ---- user ---- */
+const UKEY='mw_recontact_user';
+let user = localStorage.getItem(UKEY) || '';
+const state = { owner:'mine', q:'', type:'', status:'', bucket:null, sort:'value' };
+
+function setUser(u){ user=u; localStorage.setItem(UKEY,u); $('#gate').hidden=true; renderWho(); render(); }
+if(!user){ $('#gate').hidden=false; }
+document.querySelectorAll('#gate .pick button').forEach(b => b.onclick = () => setUser(b.dataset.user));
+document.querySelectorAll('#whoami button').forEach(b => b.onclick = () => setUser(b.dataset.user));
+function renderWho(){ document.querySelectorAll('#whoami button').forEach(b => b.className = (b.dataset.user===user) ? 'on-'+user : ''); }
+
+/* ---- filtering ---- */
+const BUCKETS=[{l:'under 6 mo',min:0,max:6},{l:'6–9 mo',min:6,max:9},{l:'9–12 mo',min:9,max:12},{l:'12–18 mo',min:12,max:18},{l:'18+ mo',min:18,max:999}];
+function inBucket(c,i){ const b=BUCKETS[i]; return c.mo!==null && c.mo>=b.min && c.mo<b.max; }
+function ownerMatch(c){
+  if(state.owner==='mine') return c.owner===user;
+  if(state.owner==='all') return true;
+  return c.owner===state.owner;
+}
+function baseFiltered(){ // everything except bucket filter (so the strip shows the distribution of the current view)
+  const q=state.q.trim().toLowerCase();
+  return DATA.filter(c => {
+    if(!ownerMatch(c)) return false;
+    if(state.type==='other'){ if(['Residential','Commercial','Education'].includes(c.clientType)) return false; }
+    else if(state.type && c.clientType!==state.type) return false;
+    if(state.status!=='' && prog(c.email).s !== +state.status) return false;
+    if(q){
+      const hay=(c.name+' '+c.email+' '+c.clientType+' '+c.jobs.map(j=>j.site+' '+j.desc+' '+j.jobNumber).join(' ')).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+function filtered(){ const b=baseFiltered(); return state.bucket===null ? b : b.filter(c=>inBucket(c,state.bucket)); }
+
+const SORTS={
+  value:(a,b)=>b.totalValue-a.totalValue,
+  oldest:(a,b)=>(b.mo??-1)-(a.mo??-1),
+  recent:(a,b)=>(a.mo??999)-(b.mo??999),
+  jobs:(a,b)=>b.jobCount-a.jobCount,
+  name:(a,b)=>a.name.localeCompare(b.name),
+};
+
+/* ---- render ---- */
+function ownerTabs(){
+  const mineN=DATA.filter(c=>c.owner===user).length;
+  const t=[['mine',`My list (${mineN})`],['bas','Bas'],['herman','Herman'],['all','Everyone']];
+  $('#ownerTabs').innerHTML=t.map(([k,l])=>`<button role="tab" data-k="${k}" aria-selected="${state.owner===k}">${l}</button>`).join('');
+  document.querySelectorAll('#ownerTabs button').forEach(b=>b.onclick=()=>{state.owner=b.dataset.k; render();});
+}
+function kpis(list){
+  const total=list.reduce((s,c)=>s+c.totalValue,0);
+  const done=list.filter(c=>prog(c.email).s>0).length;
+  const won=list.filter(c=>prog(c.email).s===4).length;
+  const due=list.filter(c=>c.mo!==null&&c.mo>=12).length;
+  $('#kpis').innerHTML=`
+    <div class="kpi"><div class="lbl">Customers in view</div><div class="val">${list.length}</div><div class="hint">${done} contacted so far</div></div>
+    <div class="kpi"><div class="lbl">2024 revenue they represent</div><div class="val">${fmt$(total)}</div><div class="hint">avg ${list.length?fmt$(total/list.length):'—'} / customer</div></div>
+    <div class="kpi"><div class="lbl">Due — 12+ months since job</div><div class="val">${due}</div><div class="hint">warmest re-wash candidates</div></div>
+    <div class="kpi"><div class="lbl">Won</div><div class="val">${won}</div><div class="hint">${list.length-done} still to reach</div></div>`;
+}
+function buckets(base){
+  const counts=BUCKETS.map((_,i)=>base.filter(c=>inBucket(c,i)).length);
+  const max=Math.max(1,...counts);
+  $('#buckets').innerHTML=BUCKETS.map((b,i)=>`
+    <button class="bucket" aria-pressed="${state.bucket===i}" data-i="${i}">
+      <div class="n">${counts[i]}</div><div class="l">${b.l}</div>
+      <div class="bar"><i style="width:${Math.round(counts[i]/max*100)}%"></i></div>
+    </button>`).join('');
+  document.querySelectorAll('.bucket').forEach(b=>b.onclick=()=>{const i=+b.dataset.i; state.bucket=(state.bucket===i)?null:i; render();});
+}
+function rows(list){
+  $('#countLbl').innerHTML=`<b>${list.length}</b> customer${list.length===1?'':'s'}`;
+  $('#valueLbl').innerHTML=`2024 value <b>${fmt$(list.reduce((s,c)=>s+c.totalValue,0))}</b>`;
+  $('#rows').innerHTML=list.map(c=>{
+    const p=prog(c.email);
+    const due=c.mo!==null&&c.mo>=12;
+    return `<tr data-e="${encodeURIComponent(c.email)}" tabindex="0">
+      <td><div class="cname">${esc(c.name)}</div><div class="cmail">${esc(c.email)}</div></td>
+      <td class="type">${esc(c.clientType||'—')}</td>
+      <td><span class="chip ${c.owner}">${OWNER_LABEL[c.owner]}</span></td>
+      <td class="num">${c.jobCount}</td>
+      <td class="num"><b>${fmt$(c.totalValue)}</b></td>
+      <td>${fmtDate(c.lastJobDate)}<div class="mo ${due?'due':''}">${c.mo===null?'':Math.round(c.mo)+' mo ago'}</div></td>
+      <td><span class="pill s${p.s}"><i></i>${STATUS[p.s]}</span></td>
+    </tr>`;
+  }).join('');
+  document.querySelectorAll('#rows tr').forEach(tr=>{
+    const open=()=>openDrawer(decodeURIComponent(tr.dataset.e));
+    tr.onclick=open;
+    tr.onkeydown=e=>{if(e.key==='Enter')open();};
+  });
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function render(){
+  ownerTabs();
+  const base=baseFiltered();
+  kpis(base); buckets(base);
+  rows(filtered().slice().sort(SORTS[state.sort]));
+}
+$('#q').oninput=e=>{state.q=e.target.value; render();};
+$('#typeSel').onchange=e=>{state.type=e.target.value; render();};
+$('#statusSel').onchange=e=>{state.status=e.target.value; render();};
+$('#sortSel').onchange=e=>{state.sort=e.target.value; render();};
+
+/* ---- drawer ---- */
+let current=null;
+function openDrawer(email){
+  current=DATA.find(c=>c.email===email); if(!current) return;
+  drawDrawer();
+  $('#overlay').classList.add('open'); $('#drawer').classList.add('open');
+}
+function closeDrawer(){ $('#overlay').classList.remove('open'); $('#drawer').classList.remove('open'); current=null; render(); }
+$('#overlay').onclick=closeDrawer;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&current) closeDrawer(); });
+
+function firstName(name){
+  let n=name;
+  if(n.includes(' - ')) n=n.split(' - ').pop();
+  n=n.split(/\s+[l|]\s+|\s*&\s*|\s+and\s+/i)[0].trim();
+  const first=n.split(/\s+/)[0]||'';
+  // building / org names (BC numbers, digits, org words) get a neutral greeting
+  if(/^bc\s*\d*/i.test(first) || /\d/.test(first) || first.length<2) return 'there';
+  if(/apartment|body corporate|college|school|church|society|ltd|limited|trust|village|hotel|motel|property|properties|management|group|incorporated/i.test(n) && !n.includes(' - ')) return 'there';
+  return first;
+}
+function shortSite(site){ return (site||'').split('\n')[0].trim(); }
+function jobPhrase(desc){
+  let d=(desc||'').replace(/^Website:\s*/i,'').replace(/\s+/g,' ').trim();
+  const cut=d.search(/[.!?\n]/); if(cut>15&&cut<120) d=d.slice(0,cut);
+  if(d.length>110) d=d.slice(0,110).replace(/\s\S*$/,'')+'…';
+  return d;
+}
+function draftEmail(c){
+  const last=c.jobs[0];
+  const me=user==='bas'?'Bas':'Herman';
+  const site=shortSite(last.site)||'your property';
+  const when=last.date?monthYear(last.date):'last year';
+  const mo=c.mo?Math.round(c.mo):null;
+  const phrase=jobPhrase(last.desc);
+  const subject=`Time for a refresh at ${site}?`;
+  const body=
+`Hi ${firstName(c.name)},
+
+${me} here from Maximum Wash. We looked after ${site} back in ${when}${phrase?` — ${phrase.toLowerCase().startsWith('full')||phrase.length<60?phrase.toLowerCase():'the exterior clean'}`:''} — and it's ${mo?`been about ${mo} months since`:'been a while since'} we were last out.
+
+That's usually about the time dirt, mould and salt build-up start to show again, so I wanted to check in before it gets ahead of you. We still have your details on file, so I can put together a quote for another visit straight away — same scope as last time, or tailored to whatever the property needs now.
+
+Would sometime in the next few weeks suit? Happy to work in with tenants or site access if needed.
+
+Cheers,
+${me}
+Maximum Wash
+${user==='bas'?'bas@maximumwash.co.nz':''}`.trim();
+  return {subject, body};
+}
+function drawDrawer(){
+  const c=current, p=prog(c.email), d=draftEmail(c);
+  $('#drawerInner').innerHTML=`
+    <div class="dhead"><div><h2>${esc(c.name)}</h2></div><button class="close" aria-label="Close" onclick="closeDrawer()">×</button></div>
+    <div class="dmeta">
+      <span class="chip ${c.owner}">${OWNER_LABEL[c.owner]}</span>
+      <span class="pill"><i></i>${esc(c.clientType||'—')}</span>
+      <span class="pill">${c.jobCount} job${c.jobCount===1?'':'s'} · ${fmt$(c.totalValue)}</span>
+      <span class="pill">Last: ${fmtDate(c.lastJobDate)}</span>
+    </div>
+    <div class="card">
+      <h3>Contact</h3>
+      <div class="contact-row"><span class="v">${esc(c.email)}</span><button class="mini" data-copy="${esc(c.email)}">Copy</button></div>
+      ${c.phone?`<div class="contact-row"><span class="v">${esc(c.phone)}</span><button class="mini" data-copy="${esc(c.phone)}">Copy</button></div>`:''}
+    </div>
+    <div class="card">
+      <h3>Outreach status</h3>
+      <div class="statusbtns">${STATUS.map((s,i)=>`<button data-s="${i}" aria-pressed="${p.s===i}">${s}</button>`).join('')}</div>
+      <textarea class="notes" id="noteBox" placeholder="Notes — who you spoke to, what they said, follow-up date…">${esc(p.n||'')}</textarea>
+      <div class="savedby" id="savedBy">${p.at?`Updated by ${OWNER_LABEL[p.by]||p.by||'?'} · ${new Date(p.at).toLocaleDateString('en-NZ')}`:''}</div>
+    </div>
+    <div class="card draft">
+      <h3>Draft email — signed as ${user==='bas'?'Bas':'Herman'}</h3>
+      <label for="subj">Subject</label><input type="text" id="subj" value="${esc(d.subject)}">
+      <label for="bodyBox">Message</label><textarea id="bodyBox">${esc(d.body)}</textarea>
+      <div class="btns">
+        <button class="btn primary" id="copyDraft">Copy email text</button>
+        <button class="btn" id="mailtoBtn">Open in mail app</button>
+        <button class="btn" id="regen">Reset draft</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>2024 job history</h3>
+      ${c.jobs.map(j=>`<div class="job">
+        <div class="top"><span class="jn">${esc(j.jobNumber||'—')}</span><span class="jd">${fmtDate(j.date)}</span><span class="jv">${fmt$(j.value)}</span></div>
+        <div class="site">${esc(shortSite(j.site))}</div>
+        <div class="desc">${esc(j.desc||'')}</div>
+      </div>`).join('')}
+    </div>`;
+  document.querySelectorAll('.statusbtns button').forEach(b=>b.onclick=()=>{
+    setProg(c.email,{s:+b.dataset.s}); drawDrawer(); toast('Status saved');
+  });
+  const nb=$('#noteBox'); let t;
+  nb.oninput=()=>{ clearTimeout(t); t=setTimeout(()=>{ setProg(c.email,{n:nb.value}); $('#savedBy').textContent='Saved just now'; },500); };
+  document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>copyText(b.dataset.copy,'Copied'));
+  $('#copyDraft').onclick=()=>copyText('Subject: '+$('#subj').value+'\n\n'+$('#bodyBox').value,'Email copied — paste into Gmail/Outlook');
+  $('#mailtoBtn').onclick=()=>{
+    const url='mailto:'+encodeURIComponent(c.email)+'?subject='+encodeURIComponent($('#subj').value)+'&body='+encodeURIComponent($('#bodyBox').value);
+    window.open(url,'_self');
+  };
+  $('#regen').onclick=()=>{ const d2=draftEmail(c); $('#subj').value=d2.subject; $('#bodyBox').value=d2.body; };
+}
+function copyText(txt,msg){
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(msg)).catch(()=>{
+    const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy'); toast(msg);}catch(e){toast('Copy failed — select and copy manually');}
+    ta.remove();
+  });
+}
+let toastT;
+function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),2200); }
+
+/* ---- sync: export / import ---- */
+$('#exportBtn').onclick=async()=>{
+  const payload=JSON.stringify({app:'mw-recontact',exportedBy:user,at:Date.now(),progress},null,1);
+  const fname=`recontact-progress-${user||'user'}.json`;
+  if(window.claude&&window.claude.downloads){
+    try{ await window.claude.downloads.save({filename:fname,data:payload}); toast('Progress exported — send the file to '+(user==='bas'?'Herman':'Bas')); }
+    catch(e){ if(e&&e.code==='declined')return; copyText(payload,'Download unavailable — progress JSON copied to clipboard'); }
+  } else { copyText(payload,'Progress JSON copied to clipboard — paste into a file'); }
+};
+$('#importFile').onchange=e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const inc=JSON.parse(r.result);
+      const ip=inc.progress||inc; let merged=0;
+      Object.keys(ip).forEach(k=>{
+        const a=progress[k], b=ip[k];
+        if(!b||typeof b!=='object')return;
+        if(!a || (b.at||0)>(a.at||0)){ progress[k]=b; merged++; }
+      });
+      saveProgress(); render(); toast(`Merged ${merged} update${merged===1?'':'s'} (newest wins)`);
+    }catch(err){ toast('Could not read that file'); }
+  };
+  r.readAsText(f); e.target.value='';
+};
+
+renderWho(); render();
+</script>
