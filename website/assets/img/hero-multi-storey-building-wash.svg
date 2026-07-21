@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Placeholder: HERO — Multi-storey commercial building wash in progress (wide shot)">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2735"/>
+      <stop offset="1" stop-color="#2c3e50"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect x="12" y="12" width="1896" height="1056" fill="none" stroke="#8fa6bc" stroke-width="2" stroke-dasharray="10 8" opacity="0.55"/>
+  <g fill="#a9bdd1" opacity="0.9">
+    <path transform="translate(960,372) scale(2)" d="M-14,-8 h8 l3,-4 h6 l3,4 h8 a2,2 0 0 1 2,2 v14 a2,2 0 0 1 -2,2 h-28 a2,2 0 0 1 -2,-2 v-14 a2,2 0 0 1 2,-2 z M0,10 a6,6 0 1 0 0,-12 a6,6 0 0 0 0,12 z" fill-rule="evenodd"/>
+  </g>
+  <text x="50%" y="596" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="bold" fill="#dfe9f3">PHOTO REQUIRED</text>
+  <text x="50%" y="662" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#a9bdd1">HERO — Multi-storey commercial building wash in progress (wide shot)</text>
+  <text x="50%" y="724" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#7d92a8">hero-multi-storey-building-wash.jpg — 1920x1080px</text>
+</svg>
