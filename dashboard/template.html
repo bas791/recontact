@@ -189,8 +189,8 @@ tbody tr:last-child td{border-bottom:none}
     <h1>Who's working the list?</h1>
     <p>Pick your name — the dashboard opens on your customers and signs your email drafts. You can switch anytime up top.</p>
     <div class="pick">
-      <button data-user="bas"><span class="avatar" style="background:var(--bas)">B</span><span class="who">Bas</span><div class="desc">Green list · 114 customers</div></button>
-      <button data-user="herman"><span class="avatar" style="background:var(--herman)">H</span><span class="who">Herman</span><div class="desc">Red + uncoloured · 348 customers</div></button>
+      <button data-user="bas"><span class="avatar" style="background:var(--bas)">B</span><span class="who">Bas</span><div class="desc">Green list · <span data-count="bas"></span> customers</div></button>
+      <button data-user="herman"><span class="avatar" style="background:var(--herman)">H</span><span class="who">Herman</span><div class="desc">Red + uncoloured · <span data-count="herman"></span> customers</div></button>
     </div>
   </div>
 </div>
@@ -272,8 +272,8 @@ const PKEY='mw_recontact_progress_v1';
 let progress = {};
 try{ progress = JSON.parse(localStorage.getItem(PKEY)||'{}'); }catch(e){}
 function saveProgress(){ try{ localStorage.setItem(PKEY, JSON.stringify(progress)); }catch(e){} }
-function prog(email){ return progress[email] || {s:0, n:'', by:'', at:0}; }
-function setProg(email, patch){ progress[email] = Object.assign(prog(email), patch, {by:user, at:Date.now()}); saveProgress(); }
+function prog(key){ return progress[key] || {s:0, n:'', by:'', at:0}; }
+function setProg(key, patch){ progress[key] = Object.assign(prog(key), patch, {by:user, at:Date.now()}); saveProgress(); }
 
 /* ---- user ---- */
 const UKEY='mw_recontact_user';
@@ -300,7 +300,7 @@ function baseFiltered(){ // everything except bucket filter (so the strip shows 
     if(!ownerMatch(c)) return false;
     if(state.type==='other'){ if(['Residential','Commercial','Education'].includes(c.clientType)) return false; }
     else if(state.type && c.clientType!==state.type) return false;
-    if(state.status!=='' && prog(c.email).s !== +state.status) return false;
+    if(state.status!=='' && prog(c.key).s !== +state.status) return false;
     if(q){
       const hay=(c.name+' '+c.email+' '+c.clientType+' '+c.jobs.map(j=>j.site+' '+j.desc+' '+j.jobNumber).join(' ')).toLowerCase();
       if(!hay.includes(q)) return false;
@@ -327,8 +327,8 @@ function ownerTabs(){
 }
 function kpis(list){
   const total=list.reduce((s,c)=>s+c.totalValue,0);
-  const done=list.filter(c=>prog(c.email).s>0).length;
-  const won=list.filter(c=>prog(c.email).s===4).length;
+  const done=list.filter(c=>prog(c.key).s>0).length;
+  const won=list.filter(c=>prog(c.key).s===4).length;
   const due=list.filter(c=>c.mo!==null&&c.mo>=12).length;
   $('#kpis').innerHTML=`
     <div class="kpi"><div class="lbl">Customers in view</div><div class="val">${list.length}</div><div class="hint">${done} contacted so far</div></div>
@@ -350,10 +350,10 @@ function rows(list){
   $('#countLbl').innerHTML=`<b>${list.length}</b> customer${list.length===1?'':'s'}`;
   $('#valueLbl').innerHTML=`2024 value <b>${fmt$(list.reduce((s,c)=>s+c.totalValue,0))}</b>`;
   $('#rows').innerHTML=list.map(c=>{
-    const p=prog(c.email);
+    const p=prog(c.key);
     const due=c.mo!==null&&c.mo>=12;
-    return `<tr data-e="${encodeURIComponent(c.email)}" tabindex="0">
-      <td><div class="cname">${esc(c.name)}</div><div class="cmail">${esc(c.email)}</div></td>
+    return `<tr data-e="${encodeURIComponent(c.key)}" tabindex="0">
+      <td><div class="cname">${esc(c.name)}</div><div class="cmail">${c.email?esc(c.email):(c.phone?esc(c.phone)+' · no email':'no email on file')}</div></td>
       <td class="type">${esc(c.clientType||'—')}</td>
       <td><span class="chip ${c.owner}">${OWNER_LABEL[c.owner]}</span></td>
       <td class="num">${c.jobCount}</td>
@@ -382,8 +382,8 @@ $('#sortSel').onchange=e=>{state.sort=e.target.value; render();};
 
 /* ---- drawer ---- */
 let current=null;
-function openDrawer(email){
-  current=DATA.find(c=>c.email===email); if(!current) return;
+function openDrawer(key){
+  current=DATA.find(c=>c.key===key); if(!current) return;
   drawDrawer();
   $('#overlay').classList.add('open'); $('#drawer').classList.add('open');
 }
@@ -432,7 +432,7 @@ ${user==='bas'?'bas@maximumwash.co.nz':''}`.trim();
   return {subject, body};
 }
 function drawDrawer(){
-  const c=current, p=prog(c.email), d=draftEmail(c);
+  const c=current, p=prog(c.key), d=draftEmail(c);
   $('#drawerInner').innerHTML=`
     <div class="dhead"><div><h2>${esc(c.name)}</h2></div><button class="close" aria-label="Close" onclick="closeDrawer()">×</button></div>
     <div class="dmeta">
@@ -443,7 +443,7 @@ function drawDrawer(){
     </div>
     <div class="card">
       <h3>Contact</h3>
-      <div class="contact-row"><span class="v">${esc(c.email)}</span><button class="mini" data-copy="${esc(c.email)}">Copy</button></div>
+      ${c.email?`<div class="contact-row"><span class="v">${esc(c.email)}</span><button class="mini" data-copy="${esc(c.email)}">Copy</button></div>`:`<div class="contact-row"><span class="v" style="color:var(--ink-3)">No email on file — phone or check ServiceM8</span></div>`}
       ${c.phone?`<div class="contact-row"><span class="v">${esc(c.phone)}</span><button class="mini" data-copy="${esc(c.phone)}">Copy</button></div>`:''}
     </div>
     <div class="card">
@@ -458,7 +458,7 @@ function drawDrawer(){
       <label for="bodyBox">Message</label><textarea id="bodyBox">${esc(d.body)}</textarea>
       <div class="btns">
         <button class="btn primary" id="copyDraft">Copy email text</button>
-        <button class="btn" id="mailtoBtn">Open in mail app</button>
+        ${c.email?`<button class="btn" id="mailtoBtn">Open in mail app</button>`:''}
         <button class="btn" id="regen">Reset draft</button>
       </div>
     </div>
@@ -520,5 +520,6 @@ $('#importFile').onchange=e=>{
   r.readAsText(f); e.target.value='';
 };
 
+document.querySelectorAll('[data-count]').forEach(el=>{ el.textContent=DATA.filter(c=>c.owner===el.dataset.count).length; });
 renderWho(); render();
 </script>

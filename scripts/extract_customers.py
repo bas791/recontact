@@ -83,30 +83,37 @@ def main(xlsx_path, out_path="data/customers.json"):
         any_k = parse_dates(DATE_RE.findall(g(11)), today)
         jd = max(sched or pay or any_k, default=None)
         phone = g(6).strip()
+        email = g(7).strip().lower()
+        if "@" not in email:  # placeholder like "na" — not a real address
+            email = ""
         jobs.append(dict(
             jobNumber=g(2).strip(),
             name=str(name).strip(),
             clientType=g(4).strip(),
             site=g(5).strip(),
             phone="" if phone.upper() in BAD_PHONES else phone,
-            email=g(7).strip().lower(),
+            email=email,
             desc=g(9).strip(),
             value=money(ws.cell(r, 15).value),
             date=jd.strftime("%Y-%m-%d") if jd else None,
             cat=row_colour(r),
         ))
 
-    by_email = defaultdict(list)
+    # group by email; rows with no real email group by customer name instead
+    by_key = defaultdict(list)
     for j in jobs:
-        by_email[j["email"]].append(j)
+        key = j["email"] or "name:" + re.sub(r"\s+", " ", j["name"].lower())
+        by_key[key].append(j)
 
     customers = []
-    for email, js in by_email.items():
+    for key, js in by_key.items():
+        email = js[0]["email"]
         js.sort(key=lambda j: j["date"] or "0000", reverse=True)
         names = Counter(j["name"] for j in js)
         types = Counter(j["clientType"] for j in js if j["clientType"])
         cats = {j["cat"] for j in js}
         customers.append(dict(
+            key=key,
             email=email,
             name=names.most_common(1)[0][0],
             clientType=types.most_common(1)[0][0] if types else "",
