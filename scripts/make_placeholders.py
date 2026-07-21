@@ -9,27 +9,16 @@ import os
 OUT = os.path.join(os.path.dirname(__file__), "..", "website", "assets", "img")
 
 # name, width, height, label (the shot required)
+# Slots with real photography are handled by process_photos.py — only the
+# still-missing shots remain here.
 PLACEHOLDERS = [
-    ("hero-multi-storey-building-wash", 1920, 1080, "HERO — Multi-storey commercial building wash in progress (wide shot)"),
-    ("capability-ewp-facade-clean", 900, 1100, "Technician cleaning a commercial facade from an elevated work platform"),
-    ("capability-team-working-at-heights", 900, 700, "Technicians in harnesses cleaning skylight glazing on a commercial roof"),
-    ("industry-commercial-property", 800, 560, "Commercial office building exterior, freshly washed"),
     ("industry-retirement-village", 800, 560, "Retirement village buildings and grounds"),
     ("industry-body-corporate", 800, 560, "Multi-storey apartment building exterior"),
-    ("industry-retail-centre", 800, 560, "Retail / shopping centre frontage"),
-    ("industry-warehouse-industrial", 800, 560, "Large warehouse or industrial facility exterior"),
     ("industry-school-education", 800, 560, "School buildings / education campus"),
-    ("industry-hotel-hospitality", 800, 560, "Hotel or hospitality building exterior"),
-    ("industry-multi-site", 800, 560, "Branded Maximum Wash vehicles / multiple sites collage"),
     ("project-retirement-village", 1000, 700, "PROJECT — Retirement village exterior maintenance programme"),
     ("project-apartment-wash", 1000, 700, "PROJECT — Multi-storey apartment building wash (before/after)"),
     ("project-warehouse-facade", 1000, 700, "PROJECT — Warehouse facade clean"),
     ("project-national-programme", 1000, 700, "PROJECT — National multi-site programme (vehicles / sites)"),
-    ("project-roof-treatment-before", 600, 700, "BEFORE — Commercial roof with moss and lichen"),
-    ("project-roof-treatment-after", 600, 700, "AFTER — Commercial roof cleaned"),
-    ("project-rope-access", 1000, 700, "PROJECT — Rope access technicians washing a building"),
-    ("safety-working-at-heights", 900, 1100, "Harnessed technician washing a commercial roof (aerial shot)"),
-    ("nationwide-branded-fleet", 1200, 700, "Branded Maximum Wash vehicle fleet lined up"),
 ]
 
 SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="Placeholder: {label}">
