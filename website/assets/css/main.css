@@ -4,14 +4,14 @@
    ========================================================================== */
 
 :root {
-  /* Brand tokens — adjust to official Maximum Wash brand colours */
+  /* Brand tokens — matched to Maximum Wash livery (blue/orange logo) */
   --navy-900: #0c1622;
   --navy-800: #12202f;
   --navy-700: #1b2d40;
   --navy-100: #e8eef5;
-  --accent: #1479c9;        /* primary action blue */
-  --accent-dark: #0f5e9c;
-  --safety: #f59e0b;        /* sparing highlight only */
+  --accent: #1660aa;        /* brand blue (logo "MAXIMUM") */
+  --accent-dark: #114b85;
+  --safety: #f47b20;        /* brand orange (logo "WASH") — sparing highlight only */
   --ink: #17242f;
   --ink-soft: #46586a;
   --line: #d9e2ea;
@@ -140,11 +140,12 @@ p  { margin: 0 0 1em; }
   font-weight: 900;
   font-size: 1.3rem;
   letter-spacing: 0.02em;
-  color: var(--navy-900);
+  font-style: italic;
+  color: var(--accent);
   text-decoration: none;
   line-height: 1.1;
 }
-.logo span { color: var(--accent); }
+.logo span { color: var(--safety); }
 .logo small {
   display: block;
   font-size: 0.62rem;

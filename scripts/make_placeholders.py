@@ -12,7 +12,7 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "website", "assets", "img")
 PLACEHOLDERS = [
     ("hero-multi-storey-building-wash", 1920, 1080, "HERO — Multi-storey commercial building wash in progress (wide shot)"),
     ("capability-ewp-facade-clean", 900, 1100, "Technician cleaning a commercial facade from an elevated work platform"),
-    ("capability-team-site-briefing", 900, 700, "Maximum Wash team in branded uniform at a pre-start site briefing"),
+    ("capability-team-working-at-heights", 900, 700, "Technicians in harnesses cleaning skylight glazing on a commercial roof"),
     ("industry-commercial-property", 800, 560, "Commercial office building exterior, freshly washed"),
     ("industry-retirement-village", 800, 560, "Retirement village buildings and grounds"),
     ("industry-body-corporate", 800, 560, "Multi-storey apartment building exterior"),
@@ -27,7 +27,7 @@ PLACEHOLDERS = [
     ("project-national-programme", 1000, 700, "PROJECT — National multi-site programme (vehicles / sites)"),
     ("project-roof-treatment", 1000, 700, "PROJECT — Commercial roof treatment (before/after)"),
     ("project-rope-access", 1000, 700, "PROJECT — Rope access technicians washing a building"),
-    ("safety-harness-check", 900, 1100, "Technician completing a harness / equipment safety check"),
+    ("safety-working-at-heights", 900, 1100, "Harnessed technician washing a commercial roof (aerial shot)"),
     ("nationwide-branded-fleet", 1200, 700, "Branded Maximum Wash vehicle fleet lined up"),
 ]
 
