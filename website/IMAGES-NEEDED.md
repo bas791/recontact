@@ -20,6 +20,18 @@ the real photos.
 | Fleet lineup — six trucks parked under the canopy (front view) | `nationwide-branded-fleet.jpg` | Nationwide section, under the map |
 | Trucks + red boom on site at the dark-glass commercial building | `industry-multi-site.jpg` | "Multi-Site & National Portfolios" industry card |
 | Fleet rear view, decks loaded with reels and gear | `project-national-programme.jpg` | Stand-in for the National Multi-Site Programme project card until real programme photos exist |
+| Moss-and-lichen-covered commercial roof | `project-roof-treatment-before.jpg` | Roof Treatment project card — BEFORE panel |
+| Clean commercial roof (supermarket, sea in background) | `project-roof-treatment-after.jpg` | Roof Treatment project card — AFTER panel |
+
+### Supplied but not recommended for this page
+
+The stone patio before/after pair (blackened tiles → clean travertine, with
+the outdoor fireplace) is a striking transformation, but the setting reads
+clearly residential — private garden, pool fence, putting green — and the
+brief for this page is to avoid anything that looks domestic. Recommended
+use: the residential pages or a hard-surface cleaning service page. If a
+hard-surface example is wanted on the commercial homepage, a commercial car
+park, plaza or walkway before/after would do the same job on-brand.
 
 ## Photos still wanted — 800×560 landscape or larger
 
@@ -35,7 +47,6 @@ the real photos.
 | `project-retirement-village` | Retirement village programme (1000×700) |
 | `project-apartment-wash` | Multi-storey apartment wash, before/after (1000×700) |
 | `project-warehouse-facade` | Warehouse façade clean (1000×700) |
-| `project-roof-treatment` | Commercial roof treatment before/after (1000×700) |
 | `project-rope-access` | Rope access technicians on a building (1000×700) |
 
 Before/after pairs are ideal for the project cards. Real Maximum Wash sites

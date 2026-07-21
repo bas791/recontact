@@ -409,6 +409,23 @@ p  { margin: 0 0 1em; }
   flex-direction: column;
 }
 .project-card img { aspect-ratio: 10 / 7; object-fit: cover; }
+.ba-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.ba-pair figure { position: relative; margin: 0; }
+.ba-pair img { aspect-ratio: 6 / 7; object-fit: cover; height: 100%; }
+.ba-pair figcaption {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(12, 22, 34, 0.78);
+}
+.ba-pair figure:last-child figcaption { background: var(--accent); }
 .project-card .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .project-card h3 { margin: 0; }
 .project-card .location {
