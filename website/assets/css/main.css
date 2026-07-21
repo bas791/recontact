@@ -158,7 +158,7 @@ p  { margin: 0 0 1em; }
 .main-nav ul {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 20px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -167,8 +167,9 @@ p  { margin: 0 0 1em; }
   color: var(--ink);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.97rem;
+  font-size: 0.93rem;
   padding: 6px 0;
+  white-space: nowrap;
 }
 .main-nav a:hover, .main-nav a:focus { color: var(--accent-dark); }
 .main-nav .nav-cta { margin-left: 6px; }
@@ -622,20 +623,7 @@ blockquote.testimonial footer {
   .capability-media { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 720px) {
-  .section { padding: 62px 0; }
-  .hero .container { padding-top: 76px; padding-bottom: 76px; }
-  .cred-bar ul { grid-template-columns: repeat(2, 1fr); }
-  .card-grid--3, .card-grid--4, .card-grid--2,
-  .testimonial-grid, .why-grid { grid-template-columns: 1fr; }
-  .process-steps { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .region-list { grid-template-columns: 1fr; }
-  .capability-media { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .mobile-cta { display: flex; }
-  body { padding-bottom: 68px; }
-
+@media (max-width: 1180px) {
   .nav-toggle { display: block; }
   .main-nav {
     position: absolute;
@@ -659,6 +647,21 @@ blockquote.testimonial footer {
   .main-nav a { display: block; padding: 14px 24px; }
   .main-nav .nav-cta { margin: 10px 24px 8px; }
   .main-nav .nav-cta a { display: block; text-align: center; }
+}
+
+@media (max-width: 720px) {
+  .section { padding: 62px 0; }
+  .hero .container { padding-top: 76px; padding-bottom: 76px; }
+  .cred-bar ul { grid-template-columns: repeat(2, 1fr); }
+  .card-grid--3, .card-grid--4, .card-grid--2,
+  .testimonial-grid, .why-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .region-list { grid-template-columns: 1fr; }
+  .capability-media { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .mobile-cta { display: flex; }
+  body { padding-bottom: 68px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
